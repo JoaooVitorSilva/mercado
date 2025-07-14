@@ -21,7 +21,7 @@ def page_produto():
         if produto_obj:
             if current_user.compra_disponivel(produto_obj):
                 produto_obj.compra(current_user)
-                flash(f"Parabéns! Voce comprou o produto {produto_obj.nome}", category="success")
+                flash(f"Parabéns! Você comprou o produto {produto_obj.nome}", category="success")
             else:
                 flash(f"Você não possui saldo suficiente para comprar o produto{produto_obj.nome}", category="danger")
         # Venda Produto
