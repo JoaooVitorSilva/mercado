@@ -1,7 +1,7 @@
 from mercado import app
 from flask import render_template, redirect, url_for, flash, request
 from mercado.models import Item, User
-from mercado.forms import CadastroForm, LoginForm, CompraProdutoForm, VendaProdutoForm
+from mercado.forms import CadastroForm, LoginForm, CompraProdutoForm, VendaProdutoForm, AdicionarProdutoForm
 from mercado import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -51,10 +51,12 @@ def page_cadastro():
 
         db.session.add(usuario)
         db.session.commit()
+        flash(f"Conta criada com sucesso para o usuário: {usuario.usuario}", category="success")
+        login_user(usuario)
         return redirect(url_for('page_produto'))
     if form.errors != {}:
         for err in form.errors.values():
-            flash(f"Erro ao cadastrar usuario {err}", category="danger")
+            flash(f"Erro ao cadastrar usuário: {err}", category="danger")
     return render_template("cadastro.html", form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -67,7 +69,7 @@ def page_login():
             flash(f'Sucesso! Seu login: {usuario_logado.usuario}', category='success')
             return redirect(url_for('page_produto'))
         else:
-            flash(f'Usuario ou senha estao incorretos! Tente novamente.', category='danger')
+            flash(f'Usuário ou senha estão incorretos! Tente novamente.', category='danger')
     return render_template('login.html', form=form)
 
 @app.route('/logout')
@@ -75,3 +77,35 @@ def page_logout():
     logout_user()
     flash("Você fez o logout", category="info")
     return redirect(url_for("page_home"))
+
+# Rota para a página de administração de produtos
+@app.route('/admin/add_product', methods=['GET', 'POST'])
+@login_required # Apenas usuários logados podem acessar
+def page_add_product():
+    # Verifica se o usuário logado é um administrador
+    if not current_user.is_admin:
+        flash("Você não tem permissão para acessar esta página.", category="danger")
+        return redirect(url_for('page_home')) # Redireciona para a home ou outra página
+
+    form = AdicionarProdutoForm()
+    if form.validate_on_submit():
+        try:
+            novo_produto = Item(
+                nome=form.nome.data,
+                preco=form.preco.data,
+                cod_barra=form.cod_barra.data,
+                descricao=form.descricao.data,
+                dono=None # Produtos adicionados pelo admin não têm dono inicialmente
+            )
+            db.session.add(novo_produto)
+            db.session.commit()
+            flash(f"Produto '{novo_produto.nome}' adicionado com sucesso!", category="success")
+            return redirect(url_for('page_add_product'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Erro ao adicionar produto: {e}", category="danger")
+    if form.errors != {}:
+        for err_msg in form.errors.values():
+            flash(f"Erro ao adicionar produto: {err_msg}", category="danger")
+    
+    return render_template('add_product.html', form=form)

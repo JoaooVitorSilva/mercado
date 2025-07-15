@@ -23,10 +23,12 @@ class User(db.Model, UserMixin):
 
     @property
     def senhacrip(self):
-        return self.senhacrip
+        # Corrigido: O getter deve retornar a senha (hash)
+        return self.senha
     
     @senhacrip.setter
     def senhacrip(self, senha_texto):
+        # Corrigido: O setter deve gerar e armazenar o hash da senha
         self.senha = bcrypt.generate_password_hash(senha_texto).decode('utf-8')
     
     def converte_senha(self, senha_texto_claro):
@@ -38,6 +40,11 @@ class User(db.Model, UserMixin):
     def venda_disponivel(self, produto_obj):
         return produto_obj in self.itens
 
+    # Nova propriedade para verificar se o usuário é um administrador
+    @property
+    def is_admin(self):
+        return self.email.endswith('@admin.com')
+
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(length=30), nullable=False, unique=True)
@@ -46,7 +53,8 @@ class Item(db.Model):
     descricao = db.Column(db.String(length=1024), nullable=False, unique=True)
     dono = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __repr(self):
+    # Corrigido: Adicionado underscores duplos para __repr__
+    def __repr__(self):
         return f"Item {self.nome}"
     
     def compra(self, usuario):

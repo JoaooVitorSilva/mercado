@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    Adicionar Produto
+{% endblock %}
+{% block conteudo %} {# Corrigido: 'conteudo' para consistência #}
+<div class="container text-center"> {# Adicionado container e centralização #}
+    <h1 class="h3 mb-3 font-weight-normal">
+        Adicionar Novo Produto
+    </h1>
+    <form method="POST" class="form-group" style="color: whitesmoke;"> {# Adicionado estilo para a cor do texto #}
+        {{ form.csrf_token }}
+        
+        <div class="mb-3"> {# Div para espaçamento e erros #}
+            {{ form.nome.label(class="form-label") }}
+            {{ form.nome(class="form-control", placeholder="Nome do Produto") }}
+            {% if form.nome.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.nome.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3"> {# Div para espaçamento e erros #}
+            {{ form.preco.label(class="form-label") }}
+            {{ form.preco(class="form-control", placeholder="Preço (apenas números)") }}
+            {% if form.preco.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.preco.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3"> {# Div para espaçamento e erros #}
+            {{ form.cod_barra.label(class="form-label") }}
+            {{ form.cod_barra(class="form-control", placeholder="Código de Barras (12 dígitos)") }}
+            {% if form.cod_barra.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.cod_barra.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3"> {# Div para espaçamento e erros #}
+            {{ form.descricao.label(class="form-label") }}
+            {{ form.descricao(class="form-control", rows="5", placeholder="Descrição detalhada do produto") }}
+            {% if form.descricao.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.descricao.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <br> {# Espaçamento consistente #}
+        <div class="d-grid"> {# Consistente com cadastro.html #}
+            {{ form.submit(class="btn btn-lg btn-success") }} {# Botão consistente #}
+        </div>
+    </form>
+</div>
+{% endblock %}
