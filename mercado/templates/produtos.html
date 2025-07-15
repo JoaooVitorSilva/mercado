@@ -17,7 +17,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col">Cod Barra</th>
-                                <th scope="col">Preco</th>
+                                <th scope="col">Preço</th>
                                 <th scope="col">Ações</th>
                             </tr>
                          </thead>
@@ -28,7 +28,7 @@
                                 <td>{{item.id}}</td>
                                 <td>{{item.nome}}</td>
                                 <td>{{item.cod_barra}}</td>
-                                <td>{{item.preco}}</td>
+                                <td>R$ {{item.preco}}</td>
                                 <td>
                                 <button data-bs-toggle="modal" data-bs-target="#exampleModal-{{item.id}}" class="btn btn-outline btn-info">Mais informações</button>
                                 <button data-bs-toggle="modal" data-bs-target="#exampleModalCompra-{{item.id}}" class="btn btn-outline btn-success">Comprar esse produto</button>
