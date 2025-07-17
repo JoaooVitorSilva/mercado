@@ -16,19 +16,19 @@ class User(db.Model, UserMixin):
 
     @property
     def formataValor(self):
-        if len(str(self.valor)) >= 4: # R$ 400
+        if len(str(self.valor)) >= 4: 
             return f"R$ {str(self.valor)[:-3]}, {str(self.valor)[-3:]}"
         else:
             return f"R$ {self.valor}"
 
     @property
     def senhacrip(self):
-        # Corrigido: O getter deve retornar a senha (hash)
+        
         return self.senha
     
     @senhacrip.setter
     def senhacrip(self, senha_texto):
-        # Corrigido: O setter deve gerar e armazenar o hash da senha
+        
         self.senha = bcrypt.generate_password_hash(senha_texto).decode('utf-8')
     
     def converte_senha(self, senha_texto_claro):
@@ -40,7 +40,7 @@ class User(db.Model, UserMixin):
     def venda_disponivel(self, produto_obj):
         return produto_obj in self.itens
 
-    # Nova propriedade para verificar se o usuário é um administrador
+    
     @property
     def is_admin(self):
         return self.email.endswith('@admin.com')
@@ -53,7 +53,7 @@ class Item(db.Model):
     descricao = db.Column(db.String(length=1024), nullable=False, unique=True)
     dono = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    # Corrigido: Adicionado underscores duplos para __repr__
+    
     def __repr__(self):
         return f"Item {self.nome}"
     

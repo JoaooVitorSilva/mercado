@@ -15,7 +15,7 @@ def page_produto():
     compra_form = CompraProdutoForm()
     venda_form = VendaProdutoForm()
     if request.method == "POST":
-        # Compra Produto
+        
         compra_produto = request.form.get('compra_produto')
         produto_obj = Item.query.filter_by(nome=compra_produto).first()
         if produto_obj:
@@ -24,7 +24,7 @@ def page_produto():
                 flash(f"Parabéns! Você comprou o produto {produto_obj.nome}", category="success")
             else:
                 flash(f"Você não possui saldo suficiente para comprar o produto{produto_obj.nome}", category="danger")
-        # Venda Produto
+        
         venda_produto = request.form.get('venda_produto')
         produto_obj_venda = Item.query.filter_by(nome=venda_produto).first()
         if produto_obj_venda:
@@ -78,14 +78,14 @@ def page_logout():
     flash("Você fez o logout", category="info")
     return redirect(url_for("page_home"))
 
-# Rota para a página de administração de produtos
+
 @app.route('/admin/add_product', methods=['GET', 'POST'])
-@login_required # Apenas usuários logados podem acessar
+@login_required 
 def page_add_product():
-    # Verifica se o usuário logado é um administrador
+    
     if not current_user.is_admin:
         flash("Você não tem permissão para acessar esta página.", category="danger")
-        return redirect(url_for('page_home')) # Redireciona para a home ou outra página
+        return redirect(url_for('page_home')) 
 
     form = AdicionarProdutoForm()
     if form.validate_on_submit():
@@ -95,7 +95,7 @@ def page_add_product():
                 preco=form.preco.data,
                 cod_barra=form.cod_barra.data,
                 descricao=form.descricao.data,
-                dono=None # Produtos adicionados pelo admin não têm dono inicialmente
+                dono=None 
             )
             db.session.add(novo_produto)
             db.session.commit()
