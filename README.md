@@ -30,6 +30,14 @@ Projeto ideal para treinar **desenvolvimento web com Python**, **MVC** e **integ
 
 ---
 
+## 🚀 Possíveis Melhorias
+- Integração com banco de dados real (MySQL/PostgreSQL)  
+- Sistema de usuários com níveis de acesso  
+- Upload de imagens para os produtos
+- API para consumo de dados externos
+
+---
+
 ## 📥 Link do Projeto
 
 https://mercadoecommerce.onrender.com
