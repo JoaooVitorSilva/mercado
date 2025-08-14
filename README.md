@@ -5,28 +5,6 @@ Projeto ideal para treinar **desenvolvimento web com Python**, **MVC** e **integ
 
 ---
 
-## 📂 Estrutura do Projeto
-
-FLASK/
-│── .venv/ # Ambiente virtual
-│── instance/ # Configurações e dados persistentes
-│── mercado/ # Aplicação principal
-│ ├── pycache/ # Cache do Python
-│ ├── templates/ # Páginas HTML
-│ │ ├── includes/ # Partes reutilizáveis de HTML
-│ │ │ └── add_product.html
-│ │ ├── base.html
-│ │ ├── cadastro.html
-│ │ ├── home.html
-│ │ ├── login.html
-│ │ └── produtos.html
-│ ├── init.py # Inicialização do Flask
-│ ├── forms.py # Formulários com Flask-WTF
-│ ├── models.py # Modelos do banco de dados
-│ └── routes.py # Rotas e lógica da aplicação
-│── Procfile # Configuração para deploy no Heroku
-│── requirements.txt # Dependências do projeto
-
 ## ✨ Funcionalidades
 ✅ Cadastro de novos produtos via formulário  
 ✅ Listagem de produtos no estoque  
