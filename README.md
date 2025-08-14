@@ -33,3 +33,5 @@ Projeto ideal para treinar **desenvolvimento web com Python**, **MVC** e **integ
 ## 📥 Link do Projeto
 
 https://mercadoecommerce.onrender.com
+
+💡 *Se você gostou deste projeto, deixe uma ⭐ no repositório!*
