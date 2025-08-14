@@ -27,9 +27,6 @@ FLASK/
 │── Procfile # Configuração para deploy no Heroku
 │── requirements.txt # Dependências do projeto
 
-
----
-
 ## ✨ Funcionalidades
 ✅ Cadastro de novos produtos via formulário  
 ✅ Listagem de produtos no estoque  
